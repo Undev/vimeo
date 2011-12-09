@@ -18,6 +18,8 @@ module CreateApiMethod
     raise ArgumentError, 'Required parameters must be an array.' unless options[:required].is_a? Array
     raise ArgumentError, 'Optional parameters must be an array.' unless options[:optional].is_a? Array
     
+    options[:optional] = options[:optional] + options[:required]
+    options[:required] = []
     required = options[:required].map { |r| r.to_s }.join(",")
     optional = options[:optional].map { |o| ":#{o} => nil" }.join(",")
     authorized = options.fetch(:authorized, true)
